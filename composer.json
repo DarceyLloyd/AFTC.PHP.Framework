@@ -1,0 +1,19 @@
+{
+  "name": "AFTC/framework",
+  "description": "The AFTC Framework.",
+  "keywords": [
+    "framework",
+    "aftc"
+  ],
+  "license": "MIT",
+  "type": "project",
+  "author": "Darcey Lloyd",
+  "autoload": {
+    "psr-4": {
+      "AFTC\\Framework\\": "aftc/framework"
+    }
+  },
+  "require": {
+    "php": ">=5.5.0"
+  }
+}
