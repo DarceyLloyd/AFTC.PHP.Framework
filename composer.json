@@ -9,6 +9,7 @@
   "type": "project",
   "author": "Darcey Lloyd",
   "minimum-stability": "dev",
+  "version":"0.0.1",
   "autoload": {
     "psr-4": {
       "AFTC\\Framework\\": "aftc/framework"
