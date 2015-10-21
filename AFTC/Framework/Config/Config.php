@@ -32,15 +32,15 @@ class Config
     public static $live_server_domain = "clients.aftc.co.uk/DND/IEMS/"; // EG: "www.allforthecode.co.uk" = LIVE  Anything other is DEV
 
     // Live database configuration
-    public static $database_live_host = "10.168.1.49";
-    public static $database_live_name = "allforth_aftc2010";
-    public static $database_live_username = "allforth_aftc2010";
-    public static $database_live_password = "ACzxcsweSEWEAS";
+    public static $database_live_host = "10";
+    public static $database_live_name = "all";
+    public static $database_live_username = "all";
+    public static $database_live_password = "xxxxxxxxxxxxxx";
 
     // Dev database configuration
     public static $database_dev_host = "127.0.0.1";
-    public static $database_dev_name = "iems";
-    public static $database_dev_username = "root";
-    public static $database_dev_password = "";
+    public static $database_dev_name = "xxxxx";
+    public static $database_dev_username = "xxx";
+    public static $database_dev_password = "xxx";
 
 }
