@@ -1,10 +1,10 @@
 Got css includes? here they go...
 
-For smaller sites I would recommend just placing your includes in this folder, for larger sites I would use:
+If you require unique CSS on many pages of your website / web application I strongly recommend you structure as per your sitemap eg:
 
 includes/css
-	/page_or_module_name_1/css_file_name_1.js
-	/page_or_module_name_1/css_file_name_2.js
-	/page_or_module_name_2/css_file_name_1.js
-	/page_or_module_name_2/css_file_name_2.js
+	/page_or_module_name_1/css_file_name_1.css
+	/page_or_module_name_1/css_file_name_2.css
+	/page_or_module_name_2/css_file_name_1.css
+	/page_or_module_name_2/css_file_name_2.css
 etc
