@@ -1,6 +1,6 @@
 {
   "require": {
     "php": ">=5.5.0",
-    "aftc\framework","1.0"
+    "aftc/framework","1.0"
   }
 }
