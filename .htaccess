@@ -1,0 +1,20 @@
+Options +FollowSymlinks
+RewriteEngine On
+
+#First, make sure it's not a directory.
+#RewriteCond %{REQUEST_FILENAME} !-d
+#check if appending the .php to the end gives you an existing file
+RewriteCond %{REQUEST_FILENAME} !-f
+# Condition PHP redirects only
+#RewriteCond %{REQUEST_FILENAME} \.php$
+#RewriteRule ^(.*)$ ./index.php?p=$1 [QSA,L]
+#RewriteRule ^([^/.]+)/?$ /$1/index.php?id=$2 [L,NC,QSA]
+#RewriteRule ^([^/]+)$  ./index.php?aftc_dir1=$1
+#RewriteRule ^([^/]+)/([^/]+)$  ./index.php?aftc_dir1=$1&aftc_dir2=$2
+#RewriteRule ^([^/]+)/([^/]+)/([^/]+)$  ./index.php?aftc_dir1=$1&aftc_dir2=$2&aftc_dir3=$3
+#RewriteCond %{REQUEST_URI} !index\.php [NC]
+#RewriteRule ^([^/]+)(.*)?$ ./index.php?p=$1$2   [L]
+
+
+#We are redirecting all pages to aftc.php for processing
+RewriteRule ^(.*)$ ./index.php?aftc_url_path=$1 [L,NC,QSA]

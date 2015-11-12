@@ -9,9 +9,16 @@ use AFTC\Framework\Core\Router as Router;
 
 /**
  * USAGE:
- * $param1 = page url
+ * $param1 = url
  * $param2 = controller file name
- * $param3 = controller function name (blank will default call init)
+ * $param3 = controller function name (blank will default call the function "init" if it exists)
+ * $param4 = cache (true||false - this will full cache the whole controller)
+ *
  */
 
-Router::addRoute("home","index","");
+Router::addRoute("","index","",false);
+Router::addRoute("home","home","",false);
+Router::addRoute("products/red car","products/index","",false);
+Router::addRoute("products/red_car","products/index","",false);
+Router::addRoute("products/red-car","products/index","",false);
+Router::addRoute("products/redcar","products/index","",false);
