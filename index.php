@@ -25,7 +25,7 @@ use AFTC\Framework\Config as Config;
 // Instantiate the AFTC Framework (Singleton)
 use AFTC\Framework\Core\AFTC;
 $aftc = AFTC::getInstance();
-
+$aftc->processRoute();
 
 // Profiling end
 if (Config::$show_page_generation_time) {

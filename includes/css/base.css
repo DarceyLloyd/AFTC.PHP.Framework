@@ -5,10 +5,18 @@
 * { } /* usage of * can put a high load on page processing if you have complex pages */
 
 html, body {
-	
+	font-family: Arial, Helvetica, sans-serif;
 }
 
+label {
+	font-weight: bold;
+	display: block;
+}
 
+input {
+	display: block;
+	width: 200px;
+}
 
 
 /* Structural css (try not to add inner site styling here, makes for easy structural changes)
@@ -23,14 +31,61 @@ html, body {
 	width: 940px;
 	margin-left: auto;
 	margin-right: auto;
-	background: #FFFFFF;
+}
+
+
+#header {
+	background: #CCCCCC;
+	font-size: 30px;
+	font-weight: bold;
+	padding: 20px;
+	margin-bottom: 10px;
 }
 
 #content_container {
-	
+	padding: 10px;
+	background: #EEEEEE;
+}
+
+#footer {
+	font-size: 11px;
+	background: #000000;
+	color: #FFFFFF;
+	margin-top: 20px;
 }
 
 
+#nav {
+	margin-bottom: 10px;
+	background: #888888;
+}
+
+#nav ul {
+	margin: 0;
+	padding: 0;
+	height: 40px;
+}
+
+
+#nav ul li {
+	margin: 0;
+	padding: 0;
+	display: inline-block;
+	height: 40px;
+}
+
+#nav ul li a {
+	display: block;
+	padding: 10px;
+	background: #990000;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+#nav ul li a:hover {
+	background: #CC0000;
+	text-decoration: underline;
+}
 
 
 
