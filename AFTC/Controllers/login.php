@@ -40,6 +40,9 @@ class login extends Controller
 		$this->password = getPost("password");
 
 		if ($this->postback == 1){
+			$this->loadHelper("encryption");
+			$this->loadHelper("session");
+			$this->loadHelper("cookie");
 			$this->processLogin();
 		} else {
 			$this->showLoginPage();
@@ -53,15 +56,16 @@ class login extends Controller
 	{
 		$sid = Utils::getUserIP() . $_SERVER['HTTP_USER_AGENT'];
 
-		Session::set("sid",$sid);
-		Session::set("email",$this->email);
-		Session::set("state","logged in");
-		Session::set("user_id",1);
-		Session::set("user_group_id","1");
-		Session::set("access_level","admin");
+		$this->helpers["session"]->set("sid",$sid);
+		$this->helpers["session"]->set("email",$this->email);
+		$this->helpers["session"]->set("state","logged in");
+		$this->helpers["session"]->set("user_id",1);
+		$this->helpers["session"]->set("user_group_id","1");
+		$this->helpers["session"]->set("access_level","admin");
 
 		//Cookie::set("sid",$sid);
-		Cookie::set("email",$this->email);
+		$this->helpers["cookie"]->set("sid",$sid);
+		$this->helpers["cookie"]->set("email",$this->email);
 
 		header("location:home");
 	}
@@ -72,6 +76,9 @@ class login extends Controller
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	public function showLoginPage()
 	{
+		// Var ini
+		$this->data["content"] = "";
+
 		// Set some data for the view template to use
 		$this->data["browser title"] = "Login";
 
@@ -84,7 +91,12 @@ class login extends Controller
 		$this->data["header"] = $this->loadView("header.php");
 		$this->data["nav"] = $this->loadView("nav.php");
 		$this->data["footer"] = $this->loadView("footer.php");
-		$this->data["content"] = $this->loadView("login.php");
+
+		$this->data["content title"] = "Home page security details";
+
+		$this->data["content"] .= dumpSession();
+		$this->data["content"] .= dumpCookies();
+		$this->data["content view"] = $this->loadView("login.php");
 
 		$this->html = $this->loadView("template.php");
 	}

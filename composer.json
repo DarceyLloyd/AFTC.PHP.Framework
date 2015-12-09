@@ -1,6 +1,22 @@
 {
+  "name": "aftc/application",
+  "description": "An application built using the AFTC Framework.",
+  "keywords": [
+    "framework",
+    "aftc",
+    "example project"
+  ],
+  "license": "MIT",
+  "type": "project",
+  "author": "Darcey Lloyd",
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "AFTC\\Application\\": "AFTC"
+    }
+  },
   "require": {
-    "php": ">=5.5.2",
-    "aftc/framework":"0.1"
+    "php": ">=5.5.0",
+    "aftc/framework":"0.2"
   }
 }

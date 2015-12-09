@@ -25,6 +25,8 @@ Router::addRoute("login","login","",false);
 Router::addRoute("logout","logout","",false);
 Router::addRoute("access_denied","access_denied","",false);
 Router::addRoute("home","home","",false);
+Router::addRoute("bootstrap","bootstrap","",false);
+Router::addRoute("usage_examples","usage_examples","",false);
 
 Router::addRoute("products/red car","products/index","",false);
 Router::addRoute("products/red_car","products/index","",false);

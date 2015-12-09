@@ -7,13 +7,20 @@
 
 use AFTC\Framework\Core\Controller as Controller;
 
+use AFTC\Framework\Config as Config;
+/*
+use AFTC\Framework\Config as Config;
+use AFTC\Framework\Utilities as Utils;
+use AFTC\Framework\Helpers\Session as Session;
+use AFTC\Framework\Helpers\Cookie as Cookie;
+use AFTC\Framework\Helpers\Encryption as Encryption;
+*/
 
-class logout extends Controller
+
+class bootstrap extends Controller
 {
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	private $postback = 0;
-	private $email = "";
-	private $password = "";
+
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
@@ -30,16 +37,8 @@ class logout extends Controller
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	public function init()
 	{
-		$this->loadHelper("encryption");
-		$this->loadHelper("session");
-		$this->loadHelper("cookie");
-
-		$this->helpers["session"]->destroySession();
-		$this->helpers["cookie"]->deleteAll();
-
-
 		// Set some data for the view template to use
-		$this->data["browser title"] = "Logout";
+		$this->data["browser title"] = "Bootstrap";
 
 		// Does this view/page require any custom css includes?
 		//$this->addCSSInclude("includes/css/welcome1.css");
@@ -47,13 +46,15 @@ class logout extends Controller
 		// Does this view/page require any custom js includes?
 		//$this->addJSInclude("includes/js/welcome1.js");
 
-		$this->data["header"] = $this->loadView("header.php");
 		$this->data["nav"] = $this->loadView("nav.php");
 		$this->data["footer"] = $this->loadView("footer.php");
 
+		// Vars for content view
+		$this->data["content title"] = "Bootstrap";
 		$this->data["content"] = "";
-		$this->data["content view"] = $this->loadView("logout.php");
+		$this->data["content view"] = $this->loadView("bootstrap.php");
 
+		// Template
 		$this->html = $this->loadView("template.php");
 	}
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

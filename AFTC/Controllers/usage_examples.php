@@ -17,7 +17,7 @@ use AFTC\Framework\Helpers\Encryption as Encryption;
 */
 
 
-class home extends Controller
+class usage_examples extends Controller
 {
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -27,21 +27,7 @@ class home extends Controller
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	public function __construct()
 	{
-		//$this->loadHelper("SecurityCheck");
-		//$this->helpers["SecurityCheck"]->checkUser("admin");
-
 		$this->loadHelper("encryption");
-		$this->loadHelper("cookie");
-		$this->loadHelper("session");
-
-
-		if (isset($_SESSION["logged_in"]))
-		{
-
-		} else {
-			//header("location:access_denied");
-			//exit;
-		}
 	}
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -52,10 +38,10 @@ class home extends Controller
 	public function init()
 	{
 		// Var ini
-
+		$this->data["content"] = "";
 
 		// Set some data for the view template to use
-		$this->data["browser title"] = "home";
+		$this->data["browser title"] = "usage examples";
 
 		// Does this view/page require any custom css includes?
 		//$this->addCSSInclude("includes/css/welcome1.css");
@@ -67,9 +53,34 @@ class home extends Controller
 		$this->data["nav"] = $this->loadView("nav.php");
 		$this->data["footer"] = $this->loadView("footer.php");
 
-		$this->data["content title"] = "Home page";
-		$this->data["content"] = "Welcome to a secure page (access level user)";
-		$this->data["content view"] = $this->loadView("home.php");
+		$this->data["content title"] = "Usage examples";
+
+		$StringToEncrypt = "Darcey@AllForTheCode.co.uk";
+		$EncryptedStringMethod1 = $this->helpers["encryption"]->encrypt($StringToEncrypt);
+		$DecryptedStringMethod1 = $this->helpers["encryption"]->decrypt($EncryptedStringMethod1);
+		$EncryptedStringMethod2 = $this->helpers["encryption"]->ecbEncrypt($StringToEncrypt);
+		$DecryptedStringMethod2 = $this->helpers["encryption"]->ecbDecrypt($EncryptedStringMethod2);
+
+		$this->data["encryption content"] = "";
+
+		$this->data["encryption content"] .= "<p>Method 1 - Rotating encryption (refresh page to see rotation)</p>";
+		$this->data["encryption content"] .= "<ul>";
+		$this->data["encryption content"] .= "<li>\$StringToEncrypt = " . $StringToEncrypt . "</li>";
+		$this->data["encryption content"] .= "<li>\$EncryptedStringMethod1 = " . $EncryptedStringMethod1 . "</li>";
+		$this->data["encryption content"] .= "<li>\$DecryptedStringMethod1 = " . $DecryptedStringMethod1 . "</li>";
+		$this->data["encryption content"] .= "</ul>";
+
+		$this->data["encryption content"] .= "<p>Method 2 - Non-rotating encryption</p>";
+		$this->data["encryption content"] .= "<ul>";
+		$this->data["encryption content"] .= "<li>\$StringToEncrypt = " . $StringToEncrypt . "</li>";
+		$this->data["encryption content"] .= "<li>\$EncryptedStringMethod2 = " . $EncryptedStringMethod2 . "</li>";
+		$this->data["encryption content"] .= "<li>\$DecryptedStringMethod2 = " . $DecryptedStringMethod2 . "</li>";
+		$this->data["encryption content"] .= "</ul>";
+
+
+		$this->data["database example"] = "TO DO";
+		$this->data["content view"] = $this->loadView("usage_examples.php");
+
 		$this->html = $this->loadView("template.php");
 	}
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

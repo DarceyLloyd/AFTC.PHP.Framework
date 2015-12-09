@@ -1,0 +1,55 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "3768bf0c9cd49fe351e36f0c70691540",
+    "content-hash": "1622e46469afb48f6e0efb95b9ab114d",
+    "packages": [
+        {
+            "name": "aftc/framework",
+            "version": "0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DarceyLloyd/AFTC_PHP_Framework_Packagist.git",
+                "reference": "2e7e7fe0e2f88c5da9bfd486b6c4d5c9bd697989"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DarceyLloyd/AFTC_PHP_Framework_Packagist/zipball/2e7e7fe0e2f88c5da9bfd486b6c4d5c9bd697989",
+                "reference": "2e7e7fe0e2f88c5da9bfd486b6c4d5c9bd697989",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0"
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "AFTC\\Framework\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "The AFTC Framework.",
+            "keywords": [
+                "aftc",
+                "framework"
+            ],
+            "time": "2015-10-22 11:15:50"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=5.5.0"
+    },
+    "platform-dev": []
+}

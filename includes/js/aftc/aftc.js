@@ -126,6 +126,23 @@ function validateEmail(email) {
 } 
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
+
+// -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+function dumpCookies($ElementID) {
+	var c = document.cookie.split(';');
+	var html = "";
+	html += '<div style="padding:0;margin-top:10px;margin-bottom:10px; padding: 5px; font-size:11px;border: 1px dashed #CC0000; ">\n';
+	html += '<h4 style="margin:0;padding:0;">JS Cookie DUMP</h4>';
+	for (var i = 1 ; i <= c.length; i++) {
+		html += "<div style=''>Cookie " + i + "</div>\n";
+		html += "<div style='overflow:auto;min-width:100%;border:1px solid #444444;'>" + c[i-1] + "</div>\n";
+	}
+	html += '</div>\n';
+	document.getElementById($ElementID).innerHTML = html;
+}
+// -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+
+
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 function AJAXLoadPage($url,$id,$method,$data,$callback){
 	if ( !document.getElementById($id) ){
