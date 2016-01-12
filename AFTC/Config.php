@@ -57,11 +57,11 @@ Config::$salt3 = "SALT3";
 Config::$database_driver = "pdo"; // PDO || MySQLi (direct query or manual bind in model)
 
 // Live database configuration
-Config::$database_live_host = "10.169.0.61";
-Config::$database_live_port = "3306";
-Config::$database_live_name = "framewor3_aftcdev";
-Config::$database_live_username = "framewor3_aftcd1";
-Config::$database_live_password = "moonpigdelivers";
+Config::$database_live_host = "xxxxxxxxxxxxxxxxxxxxxx";
+Config::$database_live_port = "xxxxxxxxxxxxxxxxxxxxxx";
+Config::$database_live_name = "xxxxxxxxxxxxxxxxxxxxxx";
+Config::$database_live_username = "xxxxxxxxxxxxxxxxxxxxxx";
+Config::$database_live_password = "xxxxxxxxxxxxxxxxxxxxxx";
 
 // Dev database configuration
 Config::$database_dev_host = "127.0.0.1"; // There's no place like home
