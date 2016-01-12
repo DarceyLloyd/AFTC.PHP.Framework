@@ -4,27 +4,31 @@
  * Date: 03/12/2015
  */
 
-use AFTC\Framework\Core\Helper as Helper;
+namespace AFTC\Framework\App\Helpers;
+
+use AFTC\Framework\Core\Helper;
+use AFTC\Framework\App\Helpers\Encryption;
 
 class Cookie extends Helper
 {
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	public function __construct($argControllerHelpers)
+	private $encryption;
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	public function __construct()
 	{
-		$this->helpers = $argControllerHelpers;
-		$this->addDependency("encryption");
-		$this->dependencyCheck();
+		$this->encryption = new Encryption();
 	}
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	
-
 
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	public function set($key,$value)
 	{
-		$EncryptedKey = base64_encode($this->helpers["encryption"]->ecbEncrypt($key));
-		$EncryptedValue = $this->helpers["encryption"]->encrypt($value);
+		$EncryptedKey = base64_encode($this->encryption->ecbEncrypt($key));
+		$EncryptedValue = $this->encryption->encrypt($value);
 		//trace($EncryptedKey);
 		//trace($EncryptedValue);
 		setcookie( $key, $EncryptedValue, strtotime( '+30 days' ) );
@@ -39,7 +43,7 @@ class Cookie extends Helper
 
 		if (isset($_COOKIE[$key])){
 			$EncryptedValue = $_COOKIE[$key];
-			$DecryptedValue = $this->helpers["encryption"]->decrypt($EncryptedValue);
+			$DecryptedValue = $this->encryption->decrypt($EncryptedValue);
 		}
 
 		return $DecryptedValue;

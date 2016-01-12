@@ -1,5 +1,5 @@
 {
-  "name": "aftc/application",
+  "name": "aftc/framework/application",
   "description": "An application built using the AFTC Framework.",
   "keywords": [
     "framework",
@@ -12,11 +12,11 @@
   "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
-      "AFTC\\Application\\": "AFTC"
+      "AFTC\\Framework\\App\\": "AFTC"
     }
   },
   "require": {
     "php": ">=5.5.0",
-    "aftc/framework":"0.2"
+    "aftc/framework":"0.7"
   }
 }

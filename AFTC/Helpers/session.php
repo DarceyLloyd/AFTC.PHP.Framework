@@ -4,27 +4,32 @@
  * Date: 02/12/2015
  */
 
-use AFTC\Framework\Core\Helper as Helper;
+namespace AFTC\Framework\App\Helpers;
 
+use AFTC\Framework\Core\Helper as Helper;
+use AFTC\Framework\App\Helpers\Encryption;
 
 class Session extends Helper
 {
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	private $encryption;
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	public function __construct($argControllerHelpers)
+	public function __construct()
 	{
-		$this->helpers = $argControllerHelpers;
-		$this->addDependency("encryption");
-		$this->dependencyCheck();
+		$this->encryption = new Encryption();
 	}
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	public function set($key,$value)
 	{
-		$EncryptedKey = $this->helpers["encryption"]->ecbEncrypt($key);
-		$EncryptedValue = $this->helpers["encryption"]->encrypt($value);
+		$EncryptedKey = $this->encryption->ecbEncrypt($key);
+		$EncryptedValue = $this->encryption->encrypt($value);
 		$_SESSION[$EncryptedKey] = $EncryptedValue;
 	}
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -33,12 +38,12 @@ class Session extends Helper
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	public function get($key)
 	{
-		$EencryptedKey = $this->helpers["encryption"]->ecbEncrypt($key);
+		$EencryptedKey = $this->encryption->ecbEncrypt($key);
 		$DecryptedValue = "";
 
 		if (isset($_SESSION[$EencryptedKey])){
 			$EncryptedValue = $_SESSION[$EencryptedKey];
-			$DecryptedValue = $this->helpers["encryption"]->decrypt($EncryptedValue);
+			$DecryptedValue = $this->encryption->decrypt($EncryptedValue);
 		}
 
 		return $DecryptedValue;

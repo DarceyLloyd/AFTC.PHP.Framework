@@ -14,18 +14,27 @@ error_reporting(-1); // Report all PHP errors
 // Profiling start
 $before = microtime(true);
 
-
 // Autoload namespace method
 //composer dumpautoload -o
 require_once(__DIR__ . "/vendor/autoload.php");
 
-// Get access to config
+// Process user defined config
 use AFTC\Framework\Config as Config;
 
 // Instantiate the AFTC Framework (Singleton)
 use AFTC\Framework\Core\AFTC;
 $aftc = AFTC::getInstance();
 $aftc->processRoute();
+
+/*
+use AFTC\Framework\Core\Database;
+$db = Database::getInstance();
+if ($db->isConnected()){
+	$db->disconnect();
+	unset($db);
+	$db = null;
+}
+*/
 
 // Profiling end
 if (Config::$show_page_generation_time) {

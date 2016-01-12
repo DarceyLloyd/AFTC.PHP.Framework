@@ -5,12 +5,19 @@
  * Date: 12/11/2015
  */
 
+namespace AFTC\Framework\App\Controllers\Products;
+
 use AFTC\Framework\Core\Controller as Controller;
 use AFTC\Framework\Utilities as Utils;
 use AFTC\Framework\Config;
 use AFTC\Framework\Core\Database;
 
-class index extends Controller
+//$path = __DIR__ . "../../Models/ModelLogin.php";
+//require_once($path);
+use AFTC\Framework\App\Models\Login_Model;
+
+
+class Promo1 extends Controller
 {
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	private $postback = 0;
@@ -20,33 +27,28 @@ class index extends Controller
 	private $db;
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-
-	public function init(){
-		trace("index.init()");
-	}
-
-
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	public function __construct()
 	{
-		trace("index.construct(): " . self::getId());
+		trace("Promo1.__construct(): products/Promo1");
+	}
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-		$this->loadHelper("encryption");
-		//$this->helpers["encryption"]->listAvailableHelpers();
-		$this->listAvailableHelpers();
+
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	public function Promo1()
+	{
+		trace("Promo1.Promo1(): products/Promo1");
+		//new AFTC\Framework\App\Models\Login_Model();
+		//new Login_Model();
+
+
+
+		return;
+		//trace("login.login()");
+		//$this->loadHelper("encryption");
 		//$this->loadHelper("session");
 		//$this->listAvailableHelpers();
-		//$this->helpers["encryption"]->listAvailableHelpers();
-
-
-
-		//vd($this->helpers);
-		//vd($this->helpers["session"]);
-
-		die;
-
-
-		//$this->init();
 
 		$this->postback = getPost("postback");
 		$this->email = getPost("email");
@@ -64,28 +66,30 @@ class index extends Controller
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
+
+	
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	public function processLogin()
 	{
 		$sid = Utils::getUserIP() . $_SERVER['HTTP_USER_AGENT'];
 
-		$this->helpers["session"]->set("sid",$sid);
-		$this->helpers["session"]->set("email",$this->email);
-		$this->helpers["session"]->set("state","logged in");
-		$this->helpers["session"]->set("user_id",1);
-		$this->helpers["session"]->set("user_group_id","1");
-		$this->helpers["session"]->set("access_level","admin");
+		$this->getHelper("session")->set("sid",$sid);
+		$this->getHelper("session")->set("email",$this->email);
+		$this->getHelper("session")->set("state","logged in");
+		$this->getHelper("session")->set("user_id",1);
+		$this->getHelper("session")->set("user_group_id","1");
+		$this->getHelper("session")->set("access_level","admin");
 
 		//Cookie::set("sid",$sid);
-		$this->helpers["cookie"]->set("sid",$sid);
-		$this->helpers["cookie"]->set("email",$this->email);
+		$this->getHelper("cookie")->set("sid",$sid);
+		$this->getHelper("cookie")->set("email",$this->email);
 
 		$this->loadModel("login");
-		$result = $this->models["login"]->test();
+		$result = $this->getModel("login")->test("darcey.lloyd@gmail.com",md5("1234"));
 		//trace("Query took [" . $this->models["login"]->getQueryTime() . "]");
 		//trace($result["Name"]);
-		trace($this->models["login"]->getNumRows());
-		echo($this->models["login"]->query2HTML());
+		trace($this->getModel("login")->getNumRows());
+		echo($this->getModel("login")->query2HTML());
 
 		//$db = Database::getInstance();
 		//echo($db->driver->query2HTML());
@@ -94,7 +98,7 @@ class index extends Controller
 		//header("location:home");
 	}
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
+	
 
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -113,6 +117,7 @@ class index extends Controller
 		//$this->addJSInclude("includes/js/welcome1.js");
 
 		$this->data["header"] = $this->loadView("header.php");
+
 		$this->data["nav"] = $this->loadView("nav.php");
 		$this->data["footer"] = $this->loadView("footer.php");
 

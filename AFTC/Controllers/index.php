@@ -7,6 +7,7 @@
 
 use AFTC\Framework\Core\Controller as Controller;
 
+use AFTC\Framework\Config;
 use Defuse\Crypto\Crypto as Crypto;
 use Defuse\Crypto\Exception as Ex;
 
@@ -38,7 +39,7 @@ class index extends Controller
 		//$key = Crypto::CreateNewRandomKey();
 		//file_put_contents("key",$key);
 
-		\AFTC\Framework\Config::$encryption_key = file_get_contents("key");
+		Config::$encryption_key = file_get_contents("key");
 		$key = file_get_contents("key");
 		$this->data["key"] = $key;
 

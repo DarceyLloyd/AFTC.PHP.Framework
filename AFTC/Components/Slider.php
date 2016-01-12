@@ -1,13 +1,13 @@
 <?php
+
 /**
  * Author: Darcey@AllForTheCode.co.uk
- * Date: 02/12/2015
+ * Date: 01/01/2016
  */
 
-//namespace AFTC\Helpers;
-use AFTC\Framework\Core\Helper as Helper;
+namespace AFTC\Framework\App\Components;
 
-class SecurityCheck extends Helper
+class Slider
 {
 	
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -18,7 +18,7 @@ class SecurityCheck extends Helper
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	public function __construct()
 	{
-		
+		trace("Slider.construct()");
 	}
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	
@@ -26,16 +26,8 @@ class SecurityCheck extends Helper
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	public function init()
 	{
-		
+		trace("Slider.init()");
 	}
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	public function checkUser($PageAccessLevel)
-	{
-		//echo(dumpSession());
-	}
-	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
+	
 }

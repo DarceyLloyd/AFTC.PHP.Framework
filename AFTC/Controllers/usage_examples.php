@@ -5,61 +5,50 @@
  * Date: 12/11/2015
  */
 
+namespace AFTC\Framework\App\Controllers;
+
 use AFTC\Framework\Core\Controller as Controller;
 
-use AFTC\Framework\Config as Config;
-/*
-use AFTC\Framework\Config as Config;
+use AFTC\Framework\Core\Model;
 use AFTC\Framework\Utilities as Utils;
-use AFTC\Framework\Helpers\Session as Session;
-use AFTC\Framework\Helpers\Cookie as Cookie;
-use AFTC\Framework\Helpers\Encryption as Encryption;
-*/
+use AFTC\Framework\Config;
+
+use AFTC\Framework\App\Helpers\Encryption;
+use AFTC\Framework\App\Helpers\Cookie;
+use AFTC\Framework\App\Helpers\Session;
+
+use AFTC\Framework\App\Models\ModelLogin;
 
 
 class usage_examples extends Controller
 {
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	private $encryption;
+	private $session;
+	private $cookie;
+	private $model;
 
+	private $postback = 0;
+	private $email = "";
+	private $password = "";
+
+	private $db;
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	public function __construct()
 	{
-		$this->loadHelper("encryption");
-	}
-	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-
-
-	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	public function init()
-	{
-		// Var ini
-		$this->data["content"] = "";
-
-		// Set some data for the view template to use
-		$this->data["browser title"] = "usage examples";
-
-		// Does this view/page require any custom css includes?
-		//$this->addCSSInclude("includes/css/welcome1.css");
-
-		// Does this view/page require any custom js includes?
-		//$this->addJSInclude("includes/js/welcome1.js");
-
-		$this->data["header"] = $this->loadView("header.php");
-		$this->data["nav"] = $this->loadView("nav.php");
-		$this->data["footer"] = $this->loadView("footer.php");
-
-		$this->data["content title"] = "Usage examples";
+		$this->encryption = new Encryption();
+		$this->cookie = new Cookie();
+		$this->session = new Session();
 
 		$StringToEncrypt = "Darcey@AllForTheCode.co.uk";
-		$EncryptedStringMethod1 = $this->helpers["encryption"]->encrypt($StringToEncrypt);
-		$DecryptedStringMethod1 = $this->helpers["encryption"]->decrypt($EncryptedStringMethod1);
-		$EncryptedStringMethod2 = $this->helpers["encryption"]->ecbEncrypt($StringToEncrypt);
-		$DecryptedStringMethod2 = $this->helpers["encryption"]->ecbDecrypt($EncryptedStringMethod2);
+		$EncryptedStringMethod1 = $this->encryption->encrypt($StringToEncrypt);
+		$DecryptedStringMethod1 = $this->encryption->decrypt($EncryptedStringMethod1);
+		$EncryptedStringMethod2 = $this->encryption->ecbEncrypt($StringToEncrypt);
+		$DecryptedStringMethod2 = $this->encryption->ecbDecrypt($EncryptedStringMethod2);
+
 
 		$this->data["encryption content"] = "";
 
@@ -77,8 +66,30 @@ class usage_examples extends Controller
 		$this->data["encryption content"] .= "<li>\$DecryptedStringMethod2 = " . $DecryptedStringMethod2 . "</li>";
 		$this->data["encryption content"] .= "</ul>";
 
+		$this->data["database example"] .= "- - AAA - -";
 
-		$this->data["database example"] = "TO DO";
+
+		// Var ini
+		$this->data["content"] = "";
+
+		// Set some data for the view template to use
+		$this->data["browser title"] = "Login";
+
+		// Does this view/page require any custom css includes?
+		//$this->addCSSInclude("includes/css/welcome1.css");
+
+		// Does this view/page require any custom js includes?
+		//$this->addJSInclude("includes/js/welcome1.js");
+
+		$this->data["header"] = $this->loadView("header.php");
+
+		$this->data["nav"] = $this->loadView("nav.php");
+		$this->data["footer"] = $this->loadView("footer.php");
+
+		$this->data["content title"] = "Usage example page details";
+
+		$this->data["content"] .= dumpSession();
+		$this->data["content"] .= dumpCookies();
 		$this->data["content view"] = $this->loadView("usage_examples.php");
 
 		$this->html = $this->loadView("template.php");

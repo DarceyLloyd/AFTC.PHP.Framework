@@ -10,8 +10,8 @@ use AFTC\Framework\Core\Router as Router;
 /**
  * USAGE:
  * $param1 = url
- * $param2 = controller file name
- * $param3 = controller function name (blank will default call the function "init" if it exists)
+ * $param2 = controller namespace. NOTE: No need to enter "AFTC\\Framework\\App\\Conrollers\\", should reflect dir structure eg "Products\\Promo1"
+ * $param3 = controller function to call (blank is fine if you want to process everything from the "controller file name" aka $param2
  * $param4 = cache (true||false)
  *
  * NOTE ON CACHE:
@@ -21,7 +21,13 @@ use AFTC\Framework\Core\Router as Router;
  */
 
 Router::addRoute("","login","",false);
+Router::addRoute("moo","login","",false);
 Router::addRoute("login","login","",false);
+
+Router::addRoute("products/test","Products\\Promo1","",false);
+Router::addRoute("products/promo1","Products\\Promo1","",false);
+
+
 Router::addRoute("logout","logout","",false);
 Router::addRoute("access_denied","access_denied","",false);
 Router::addRoute("home","home","",false);
