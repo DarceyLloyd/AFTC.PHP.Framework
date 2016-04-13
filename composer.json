@@ -17,6 +17,6 @@
   },
   "require": {
     "php": ">=5.5.0",
-    "aftc/framework":"0.7"
+    "aftc/framework":"0.8"
   }
 }

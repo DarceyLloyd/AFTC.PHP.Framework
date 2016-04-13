@@ -5,59 +5,148 @@
 
 
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-function log($str){ console.log($str); }
+function log($str) {
+	console.log($str);
+}
+function logTo($id, $msg) {
+	$($id).html($msg);
+}
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
 
+function isArrayInString($string, $array) {
+	return (new RegExp('(' + $array.join('|').replace(/\./g, '\\.') + ')$')).test($string);
+}
+
+
+function getRandomHexColor() {
+	var hex = Math.floor(Math.random() * 0xFFFFFF);
+	return "#" + ("000000" + hex.toString(16)).substr(-6);
+}
+
+
+function scrollToElementID($id, $speed, $delay) {
+	$id = $id.replace("#", ""); // Ensure we have something uniform to work with
+	if (!$speed || $speed == null) {
+		$speed = 1;
+	}
+	$speed *= 1000;
+
+	if (!$delay || $delay == null) {
+		$delay = 0;
+	}
+	$delay *= 1000;
+
+	$('html, body').delay($delay).animate({
+		scrollTop: $("#" + $id).offset().top
+	}, $speed);
+}
+
+
+function isValidEmail(email) {
+	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	return re.test(email);
+}
+
+
+function randomString($length) {
+	var text = "";
+	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+	for (var i = 0; i < $length; i++)
+		text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+	return text;
+}
+
+
+function guid() {
+	function s4() {
+		return Math.floor((1 + Math.random()) * 0x10000)
+			.toString(16)
+			.substring(1);
+	}
+
+	return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+		s4() + '-' + s4() + s4() + s4();
+}
+
+
+function trimStringLength($input, $length) {
+	return $input.substring(0, $length);
+}
+
+
+function getHSLColor(value) {
+	//value from 0 to 1
+	var hue = ((1 - value) * 120).toString(10);
+	return ["hsl(", hue, ",100%,50%)"].join("");
+}
+
+
+function toggleVisibilityOnClass($class) {
+	$("." + $class).fadeToggle("slow");
+}
+
+function hideShow($show, $hide) {
+	hideShow($show, $hide);
+}
+function hideShow($show, $hide) {
+	log($hide.length);
+}
+
 
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-function isFireFox(){
+function isFireFox() {
 	var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 	return is_firefox;
 }
-function isChrome(){
+function isChrome() {
 	var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
 	return is_chrome;
 }
-function isSafari(){
+function isSafari() {
 	var is_safari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
 	return is_safari;
 }
-function isIE(){
+function isIE() {
 	var is_firefox = navigator.userAgent.toLowerCase().indexOf('MSIE') > -1;
 	return is_firefox;
 }
 function getIEVersion() {
-    var match = navigator.userAgent.match(/(?:MSIE |Trident\/.*; rv:)(\d+)/);
-    return match ? parseInt(match[1]) : undefined;
+	var match = navigator.userAgent.match(/(?:MSIE |Trident\/.*; rv:)(\d+)/);
+	return match ? parseInt(match[1]) : undefined;
 }
-function get_browser(){
-   var ua=navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
-   if(/trident/i.test(M[1])){
-       tem=/\brv[ :]+(\d+)/g.exec(ua) || [];
-       return 'IE';
-   }
-   if(M[1]==='Chrome'){
-       tem=ua.match(/\bOPR\/(\d+)/);
-       if(tem!=null)   {return 'Opera';}
-   }
-   M=M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
-   if((tem=ua.match(/version\/(\d+)/i))!=null) {M.splice(1,1,tem[1]);}
-   return M[0];
-}
-// -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-
-
-
-// -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-function redirect($url){
-	self.location.href=$url;
+function get_browser() {
+	var ua = navigator.userAgent, tem, M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+	if (/trident/i.test(M[1])) {
+		tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+		return 'IE';
+	}
+	if (M[1] === 'Chrome') {
+		tem = ua.match(/\bOPR\/(\d+)/);
+		if (tem != null) {
+			return 'Opera';
+		}
+	}
+	M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
+	if ((tem = ua.match(/version\/(\d+)/i)) != null) {
+		M.splice(1, 1, tem[1]);
+	}
+	return M[0];
 }
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
+
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-function boolToString($bool){
-	if($bool){
+function redirect($url) {
+	self.location.href = $url;
+}
+// -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+
+// -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+function boolToString($bool) {
+	if ($bool) {
 		return "true";
 	} else {
 		return "false";
@@ -65,14 +154,19 @@ function boolToString($bool){
 }
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
-// -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-function isNumberKey(evt)
-{
-   var charCode = (evt.which) ? evt.which : event.keyCode;
-   if (charCode > 31 && (charCode < 48 || charCode > 57))
-      return false;
 
-   return true;
+function aftcImageFitter($id) {
+	$("#" + $id).css("backgroundSize", "auto");
+}
+
+
+// -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+function isNumberKey(evt) {
+	var charCode = (evt.which) ? evt.which : event.keyCode;
+	if (charCode > 31 && (charCode < 48 || charCode > 57))
+		return false;
+
+	return true;
 }
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
@@ -82,36 +176,43 @@ function isNumberKey(evt)
  * Finds a form element  by it's ID then set its value
  */
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-function setFormFieldById($id,$value){
-	jQuery("#"+$id).val($value);
+function setFormFieldById($id, $value) {
+	jQuery("#" + $id).val($value);
 }
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-function limitLengthInWords(field,maxWords) {
-  var value = field.value,
-      wordCount = value.split(/\S+/).length - 1,
-      re = new RegExp("^\\s*\\S+(?:\\s+\\S+){0,"+(maxWords-1)+"}");
-  if (wordCount >= maxWords) {
-      field.value = value.match(re);
-      document.getElementById('word_count').innerHTML = "";
-      wcount_valid = true;
-  } else {
-  	document.getElementById('word_count').innerHTML = (maxWords - wordCount) + " words remaining";
-  	wcount_valid = false;
-  }
+function limitLengthInWords(field, maxWords) {
+	var value = field.value,
+		wordCount = value.split(/\S+/).length - 1,
+		re = new RegExp("^\\s*\\S+(?:\\s+\\S+){0," + (maxWords - 1) + "}");
+	if (wordCount >= maxWords) {
+		field.value = value.match(re);
+		document.getElementById('word_count').innerHTML = "";
+		wcount_valid = true;
+	} else {
+		document.getElementById('word_count').innerHTML = (maxWords - wordCount) + " words remaining";
+		wcount_valid = false;
+	}
 
 	return wcount_valid;
 }
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
+
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-function checkboxReveal($checkbox,$elementForStateChange,$showOnChecked)
-{	
+function isChecked($id){
+	$element = document.getElementById($id);
+	return $element.checked;
+}
+
+
+// -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+function checkboxReveal($checkbox, $elementForStateChange, $showOnChecked) {
 	$state = jQuery('input[name="' + $checkbox.id + '"]:checked').val();
 	$state = $state.toLowerCase();
 	
-	if ($showOnChecked){
+	if ($showOnChecked) {
 		jQuery("#" + $elementForStateChange.id).slideDown($AnimSwitch);
 	} else {
 		jQuery("#" + $elementForStateChange.id).slideUp($AnimSwitch);
@@ -120,194 +221,195 @@ function checkboxReveal($checkbox,$elementForStateChange,$showOnChecked)
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-function validateEmail(email) { 
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-} 
-// -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-
-
-// -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-function dumpCookies($ElementID) {
-	var c = document.cookie.split(';');
-	var html = "";
-	html += '<div style="padding:0;margin-top:10px;margin-bottom:10px; padding: 5px; font-size:11px;border: 1px dashed #CC0000; ">\n';
-	html += '<h4 style="margin:0;padding:0;">JS Cookie DUMP</h4>';
-	for (var i = 1 ; i <= c.length; i++) {
-		html += "<div style=''>Cookie " + i + "</div>\n";
-		html += "<div style='overflow:auto;min-width:100%;border:1px solid #444444;'>" + c[i-1] + "</div>\n";
-	}
-	html += '</div>\n';
-	document.getElementById($ElementID).innerHTML = html;
+function validateEmail(email) {
+	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	return re.test(email);
 }
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
 
+function loadJSONFile($url, $callback) {
+	/*
+	 var $data = $.getJSON($file, function(result){
+	 $.each(result, function(key, val){
+	 //$("div").append(field + " ");
+	 //log(val);
+	 });
+	 return result;
+	 });
+	 */
+
+	var ajax = $.ajax({
+		dataType: "json",
+		url: $url,
+		global: false,
+		success: function (data) {
+			$callback(data);
+		},
+		error: function (data) {
+			var msg = "";
+			msg += "loadJSONFile: ERROR\n";
+			msg += "\t" + "URL: [" + $url + "]\n";
+			msg += "\t" + "ID: [" + $id + "]\n";
+			msg += "\t" + "method: [" + $method + "]\n";
+			msg += "\t" + "data: [" + $data + "]\n";
+			msg += "\t" + "status: [" + ajax.status + "]\n";
+			msg += "\t" + "statusText: [" + ajax.statusText + "]\n";
+			log(msg);
+		}
+	});
+}
+
+
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-function AJAXLoadPage($url,$id,$method,$data,$callback){
-	if ( !document.getElementById($id) ){
+function AJAXLoadPage($url, $id, $method, $data, $callback) {
+	if (!document.getElementById($id)) {
 		log("AJAXLoad: ERROR\nCannot find element id [" + $id + "]");
 		return;
 	}
-	
-	if (!$method){
-		$method = "";
-	}
-	
-	switch ($method.toLowerCase())
-	{
-		case "post":
-			var ajax = $.ajax({
-			  type: "POST",
-			  url: $url,
-			  data: $data,
-			  success: function(data){ 
-			  	$("#"+$id).html(data); 
-			  	$callback();
-			  },
-			  error: function(data) {
-						var msg = ""; 
-						msg +="AJAXLoad: ERROR\n";
-						msg +="\t" + "URL: [" + $url + "]\n";
-						msg +="\t" + "ID: [" + $id + "]\n";
-						msg +="\t" + "method: [" + $method + "]\n";
-						msg +="\t" + "data: [" + $data + "]\n";
-						msg +="\t" + "status: [" + ajax.status + "]\n";
-						msg +="\t" + "statusText: [" + ajax.statusText + "]\n";
-						log(msg);
-					},
-			  dataType: "text"
-			});
-		break;
-		
-		case "get":
-			var ajax = $.ajax({
-			  type: "GET",
-			  url: $url,
-			  data: $data,
-			  success: function(data){ 
-			  	$("#"+$id).html(data); 
-			  	$callback();
-			  },
-			  error: function(data) {
-						var msg = ""; 
-						msg +="AJAXLoad: ERROR\n";
-						msg +="\t" + "URL: [" + $url + "]\n";
-						msg +="\t" + "ID: [" + $id + "]\n";
-						msg +="\t" + "method: [" + $method + "]\n";
-						msg +="\t" + "data: [" + $data + "]\n";
-						msg +="\t" + "status: [" + ajax.status + "]\n";
-						msg +="\t" + "statusText: [" + ajax.statusText + "]\n";
-						log(msg);
-					},
-			  dataType: "text"
-			});
-		break;
-		
-		default:
-			$("#"+$id).load($url, function(response, status, xhr) {
-  				if (status == "error") {
-    				var msg = "Sorry but there was an error: ";
-    				alert(msg + xhr.status + " " + xhr.statusText);
-  				} else {
-			  		$callback();
-  				}
-  			});
-		break;
-	}
-}
-// -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
-// -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-function AJAXLoad($url,$callback,$method,$data,$callback){
-	if (!$method){
+	if (!$method) {
 		$method = "";
 	}
-	
-	switch ($method.toLowerCase())
-	{
+
+	switch ($method.toLowerCase()) {
 		case "post":
 			var ajax = $.ajax({
-			  type: "POST",
-			  url: $url,
-			  data: $data,
-			  success: function(data){
-			  	$callback();
-			  	return data;
-			  },
-			  error: function(data) {
-						var msg = ""; 
-						msg +="AJAXLoad: ERROR\n";
-						msg +="\t" + "URL: [" + $url + "]\n";
-						msg +="\t" + "method: [" + $method + "]\n";
-						msg +="\t" + "data: [" + $data + "]\n";
-						msg +="\t" + "status: [" + ajax.status + "]\n";
-						msg +="\t" + "statusText: [" + ajax.statusText + "]\n";
-						log(msg);
-					},
-			  dataType: "text"
+				type: "POST",
+				url: $url,
+				data: $data,
+				success: function (data) {
+					$("#" + $id).html(data);
+					$callback();
+				},
+				error: function (data) {
+					var msg = "";
+					msg += "AJAXLoad: ERROR\n";
+					msg += "\t" + "URL: [" + $url + "]\n";
+					msg += "\t" + "ID: [" + $id + "]\n";
+					msg += "\t" + "method: [" + $method + "]\n";
+					msg += "\t" + "data: [" + $data + "]\n";
+					msg += "\t" + "status: [" + ajax.status + "]\n";
+					msg += "\t" + "statusText: [" + ajax.statusText + "]\n";
+					log(msg);
+				},
+				dataType: "text"
 			});
-		break;
-		
+			break;
+
 		case "get":
 			var ajax = $.ajax({
-			  type: "GET",
-			  url: $url,
-			  data: $data,
-			  success: function(data){
-			  	$callback(); 
-			  	return data;
-			  },
-			  error: function(data) {
-						var msg = ""; 
-						msg +="AJAXLoad: ERROR\n";
-						msg +="\t" + "URL: [" + $url + "]\n";
-						msg +="\t" + "ID: [" + $id + "]\n";
-						msg +="\t" + "method: [" + $method + "]\n";
-						msg +="\t" + "data: [" + $data + "]\n";
-						msg +="\t" + "status: [" + ajax.status + "]\n";
-						msg +="\t" + "statusText: [" + ajax.statusText + "]\n";
-						log(msg);
-					},
-			  dataType: "text"
+				type: "GET",
+				url: $url,
+				data: $data,
+				success: function (data) {
+					$("#" + $id).html(data);
+					$callback();
+				},
+				error: function (data) {
+					var msg = "";
+					msg += "AJAXLoad: ERROR\n";
+					msg += "\t" + "URL: [" + $url + "]\n";
+					msg += "\t" + "ID: [" + $id + "]\n";
+					msg += "\t" + "method: [" + $method + "]\n";
+					msg += "\t" + "data: [" + $data + "]\n";
+					msg += "\t" + "status: [" + ajax.status + "]\n";
+					msg += "\t" + "statusText: [" + ajax.statusText + "]\n";
+					log(msg);
+				},
+				dataType: "text"
 			});
-		break;
-		
+			break;
+
 		default:
-			var ajax = $.ajax({
-			  url: $url,
-			  error: function(data) {
-						var msg = ""; 
-						msg +="AJAXLoad: ERROR\n";
-						msg +="\t" + "URL: [" + $url + "]\n";
-						msg +="\t" + "data: [" + $data + "]\n";
-						msg +="\t" + "status: [" + ajax.status + "]\n";
-						msg +="\t" + "statusText: [" + ajax.statusText + "]\n";
-						log(msg);
+			$("#" + $id).load($url, function (response, status, xhr) {
+				if (status == "error") {
+					var msg = "Sorry but there was an error: ";
+					alert(msg + xhr.status + " " + xhr.statusText);
+				} else {
+					$callback();
 				}
-			}).done(function ( data ) {
-				$callback(data);
-				return data;
 			});
-		break;
+			break;
 	}
 }
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
+// -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+function AJAXLoad($url, $method, $data, $callback) {
+
+	$.ajax({
+		method: $method,
+		url: $url,
+		data: $data,
+		success: function (response) {
+			$callback(response);
+			//return response;
+		},
+		error: function (jqXHR, textStatus) {
+			var msg = "";
+			msg += "AFTC.JS: AJAXLoad(): ERROR\n";
+			msg += "\t" + "URL: [" + $url + "]\n";
+			msg += "\t" + "method: [" + $method + "]\n";
+			msg += "\t" + "data: [" + $data + "]\n";
+			msg += "\t" + "status: [" + ajax.status + "]\n";
+			msg += "\t" + "statusText: [" + ajax.statusText + "]\n";
+			msg += "\t" + "jqXHR: [" + jqXHR + "]\n";
+			msg += "\t" + "textStatus: [" + textStatus + "]\n";
+			log(msg);
+		}
+	});
+}
+// -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+function convertOnlyZeroToNull($input) {
+	if ($input == 0){
+		return null;
+	}
+
+	if ($input == "0"){
+		return null;
+	}
+
+	return $intput;
+}
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+function convertNullToZero($input) {
+	if ($input == null){
+		return 0;
+	}
+
+	if ($input == "null"){
+		return 0;
+	}
+
+	if ($input == "NULL"){
+		return 0;
+	}
+	
+	return $input;
+}
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-function setCookie($name,$value){
+function setCookie($name, $value) {
 	//document.cookie = $name + "=" + $value + "; expires=Thu, 18 Dec 2013 12:00:00 GMT";
 	//$.cookie($name, $value, {expires:365,path:'/sfsow'});
 	var expires = new Date();
-  expires.setTime(expires.getTime() + (1 * 24 * 60 * 60 * 1000));
-  document.cookie = $name + '=' + $value + ';expires=' + expires.toUTCString();	
+	expires.setTime(expires.getTime() + (1 * 24 * 60 * 60 * 1000));
+	document.cookie = $name + '=' + $value + ';expires=' + expires.toUTCString();
 }
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
 
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-function getCookie($name){
+function getCookie($name) {
 	//return $.cookie($name);
 	var keyValue = document.cookie.match('(^|;) ?' + $name + '=([^;]*)(;|$)');
 	return keyValue ? keyValue[2] : null;
@@ -315,12 +417,15 @@ function getCookie($name){
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
 
-
-
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+function getFileExtensions($input) {
+	return $input.slice(($input.lastIndexOf(".") - 1 >>> 0) + 2);
+}
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-function DebugPosition($arg){
+function DebugPosition($arg) {
 	
 	var $msg = "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n";
 	$msg += "DebugPosition(): " + $arg.selector + " " + $arg[0] + "\n";
@@ -343,15 +448,15 @@ function DebugPosition($arg){
 	logPos();
 	
 	
-	$(document).keyup(function(e) {
-		switch (e.which){
+	$(document).keyup(function (e) {
+		switch (e.which) {
 			case 16: // shift
 				$shift = false;
-			break;
+				break;
 		}
 	});
 	
-	$(document).keydown(function(e) {
+	$(document).keydown(function (e) {
 		//console.log(e.which);
 		$x = parseInt($element.css("left"));
 		$y = parseInt($element.css("top"));
@@ -359,100 +464,103 @@ function DebugPosition($arg){
 		$o = parseInt($element.css("opacity"));
 		$sc = getElementScale();
 		
-		switch (e.which){
+		switch (e.which) {
 			case 16: // shift
 				$shift = true;
-			break;
+				break;
 			
 			case 187: // +
 				$step += 1;
 				logPos();
-			break;
+				break;
 			
 			case 189: // -
 				$step -= 1;
-				if ($step < 1){
+				if ($step < 1) {
 					$step = 1;
 				}
 				logPos();
-			break;
+				break;
 			
 			
 			case 107: // keypad +
 				/*
-				$z += 0.001;
-				$z *= 10000; $z = Math.round($z) / 10000;
-				TweenLite.to($element,$tweenTime,{zoom:$z,onComplete:logPos});
-				*/
+				 $z += 0.001;
+				 $z *= 10000; $z = Math.round($z) / 10000;
+				 TweenLite.to($element,$tweenTime,{zoom:$z,onComplete:logPos});
+				 */
 				$sc += 0.001;
-				TweenLite.to($element,$tweenTime,{scale:$sc,onComplete:logPos});
-			break;
+				TweenLite.to($element, $tweenTime, {scale: $sc, onComplete: logPos});
+				break;
 			
 			case 109: // keypad -
 				/*
-				$z -= 0.001;
-				$z *= 10000; $z = Math.round($z) / 10000;
-				TweenLite.to($element,$tweenTime,{zoom:$z,onComplete:logPos});
-				*/
+				 $z -= 0.001;
+				 $z *= 10000; $z = Math.round($z) / 10000;
+				 TweenLite.to($element,$tweenTime,{zoom:$z,onComplete:logPos});
+				 */
 				$sc -= 0.001;
-				TweenLite.to($element,$tweenTime,{scale:$sc,onComplete:logPos});
-			break;
+				TweenLite.to($element, $tweenTime, {scale: $sc, onComplete: logPos});
+				break;
 			
 			case 65: // a
 				$x -= $step;
-				$x *= 100; $x = Math.round($x) / 100;
+				$x *= 100;
+				$x = Math.round($x) / 100;
 				//TweenLite.to($element,$tweenTime,{left:$x,onComplete:logPos});
-				$element.css("left",$x);
-			break;
+				$element.css("left", $x);
+				break;
 			
 			case 68: // d
 				$x += $step;
-				$x *= 100; $x = Math.round($x) / 100;
+				$x *= 100;
+				$x = Math.round($x) / 100;
 				//TweenLite.to($element,$tweenTime,{left:$x,onComplete:logPos});
-				$element.css("left",$x);
-			break;
+				$element.css("left", $x);
+				break;
 			
 			case 87: // w
 				$y -= $step;
-				$y *= 100; $y = Math.round($y) / 100;
+				$y *= 100;
+				$y = Math.round($y) / 100;
 				//TweenLite.to($element,$tweenTime,{top:$y,onComplete:logPos});
-				$element.css("top",$y);
-			break;
+				$element.css("top", $y);
+				break;
 			
 			case 83: // s
 				$y += $step;
-				$y *= 100; $y = Math.round($y) / 100;
+				$y *= 100;
+				$y = Math.round($y) / 100;
 				//TweenLite.to($element,$tweenTime,{top:$y,onComplete:logPos});
-				$element.css("top",$y);
-			break;
+				$element.css("top", $y);
+				break;
 		}
 		
 		logPos();
 	});
 	
 	
-	function getElementScale()
-	{
+	function getElementScale() {
 		// We will work with 1st value only
 		str = $element.css('-webkit-transform');
-		str = str.replace("matrix3d(","");
-		str = str.replace("matrix(","");
-		str = str.replace(")","");
-		str = str.replace(" ","");
+		str = str.replace("matrix3d(", "");
+		str = str.replace("matrix(", "");
+		str = str.replace(")", "");
+		str = str.replace(" ", "");
 		v = str.split(",");
 		//console.log(v);
 		return parseFloat(v[0]);
 	}
 	
 	/*
-	function getRotationX()
-	{
-		var wkcm = new WebKitCSSMatrix( $element.css('-webkit-transform') );
-		return Math.floor( (Math.asin(wkcm.b) * (180/Math.PI)) );
-	}
-	*/
+	 function getRotationX()
+	 {
+	 var wkcm = new WebKitCSSMatrix( $element.css('-webkit-transform') );
+	 return Math.floor( (Math.asin(wkcm.b) * (180/Math.PI)) );
+	 }
+	 */
 	
-	function logPos(){
+	function logPos() {
 		$msg = "";
 		//$msg += "keycode:" + e.which + "   ";
 		$msg += "step:" + Math.round($step) + "   ";
@@ -472,19 +580,9 @@ function DebugPosition($arg){
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
 
-
-
-
-
-
-
-
-
-
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-jQuery(document).ready(function(){
+jQuery(document).ready(function () {
 	
-
 
 });
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
