@@ -47,31 +47,31 @@ class AdminPageOutputLibrary extends Controller
 		$this->data["postback_code"] = $this->security->getPostbackCode();
 
 
-		$this->data["site-path"] = Config::$root_absolute_path;
+		$this->data["site_path"] = Config::$root_absolute_path;
 
-		if ($this->getData("browser-title") != "") {
-			$this->data["browser title"] = Variables::$browser_title . " > " . $this->data["browser-title"];
+		if ($this->getData("browser_title") != "") {
+			$this->data["browser_title"] = Variables::$browser_title . " > " . $this->data["browser_title"];
 		} else {
-			$this->data["browser title"] = Variables::$browser_title;
+			$this->data["browser_title"] = Variables::$browser_title;
 		}
 
 		// Custom css & js
-		$this->data["page-specific-css-includes"] = $this->cssIncludes($this->data["css-includes"]);
-		$this->data["page-specific-js-includes"] = $this->jsIncludes($this->data["js-includes"]);
+		$this->data["page_specific_css_includes"] = $this->cssIncludes($this->data["css_includes"]);
+		$this->data["page_specific_js_includes"] = $this->jsIncludes($this->data["js_includes"]);
 
 		// View template components
 		$this->data["icons"] = $this->loadView("Templates/Admin/icons.php");
-		$this->data["css-includes"] = $this->loadView("Templates/Admin/css_includes.php");
-		$this->data["javascript-includes"] = $this->loadView("Templates/Admin/js_includes.php");
-		$this->data["html5-shim"] = $this->loadView("Templates/Admin/html5_shim.php");
-		$this->data["browser-upgrade"] = $this->loadView("Templates/Admin/browser_upgrade.php");
+		$this->data["css_includes"] = $this->loadView("Templates/Admin/css_includes.php");
+		$this->data["javascript_includes"] = $this->loadView("Templates/Admin/js_includes.php");
+		$this->data["html5_shim"] = $this->loadView("Templates/Admin/html5_shim.php");
+		$this->data["browser_upgrade"] = $this->loadView("Templates/Admin/browser_upgrade.php");
 		$this->data["header"] = $this->loadView("Templates/Admin/header.php");
 		$this->data["footer"] = $this->loadView("Templates/Admin/footer.php");
 
 
 		// View template
-		$this->data["column-1"] = $this->loadView($this->data["column-views"][0]);
-		$this->data["column-2"] = $this->loadView($this->data["column-views"][1]);
+		$this->data["column_1"] = $this->loadView($this->data["column-views"][0]);
+		$this->data["column_2"] = $this->loadView($this->data["column-views"][1]);
 		$this->html = $this->loadView("Templates/Admin/Template2ColumnSL.php");
 	}
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

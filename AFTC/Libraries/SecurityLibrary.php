@@ -85,7 +85,7 @@ class SecurityLibrary
 
 		// Handle maintenance mode
 		if (Variables::$maintenance_mode && !$this->Admin) {
-			redirect(Config::$root_absolute_path . "/maintenance");
+			redirect(Config::$root_absolute_path . "maintenance");
 			die;
 		} else {
 
@@ -97,13 +97,13 @@ class SecurityLibrary
 
 			if ($this->PageAccessLevel === "user" && !$this->User && !$this->Admin) {
 				//trace("PAGE IS FOR USER - USER:FALSE ADMIN:FALSE");
-				redirect(Config::$root_absolute_path . "/admin-access-denied");
+				redirect(Config::$root_absolute_path . "access-denied");
 				die;
 			}
 
 			if ($this->PageAccessLevel === "admin" && !$this->Admin) {
 				//trace("PAGE IS FOR ADMIN - ADMIN:FALSE");
-				redirect(Config::$root_absolute_path . "/admin-access-denied");
+				redirect(Config::$root_absolute_path . "admin-access-denied");
 				die;
 			}
 		}
@@ -287,6 +287,10 @@ class SecurityLibrary
 			$postback = Utilities::getCleanPost("postback");
 		} else {
 			$postback = $input;
+		}
+
+		if ($postback == null){
+			return false;
 		}
 
 		$postback = base64_decode($postback);

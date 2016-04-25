@@ -14,6 +14,27 @@ function logTo($id, $msg) {
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
 
+function getUkDateFromDbDateTime($input){
+	// "2016-04-08 21:11:59" to UK date
+	if ($input == "" || $input == null){
+		return "no input";
+	}
+	var $DateTime = $input.split(" ");
+	var $DateParts = $DateTime[0].split("-");
+	var $UKDate = $DateParts[2] + "/" + $DateParts[1] + "/" + $DateParts[0];
+	return $UKDate;
+}
+
+function getUkDateTimeFromDbDateTime($input){
+	// "2016-04-08 21:11:59" to UK date time
+	var $DateTime = $input.split(" ");
+	var $DateParts = $DateTime[0].split("-");
+	var $TimeParts = $DateTime[1].split(":");
+	var $UKDate = $DateParts[2] + "/" + $DateParts[1] + "/" + $DateParts[0];
+	var $Time = $TimeParts[0] + ":" + $TimeParts[1];
+	return ($UKDate + " " + $Time);
+}
+
 function isArrayInString($string, $array) {
 	return (new RegExp('(' + $array.join('|').replace(/\./g, '\\.') + ')$')).test($string);
 }
@@ -83,16 +104,78 @@ function getHSLColor(value) {
 	return ["hsl(", hue, ",100%,50%)"].join("");
 }
 
+function getRandomRGBString() {
+	var $r = Math.round(Math.random() * 255);
+	var $g = Math.round(Math.random() * 255);
+	var $b = Math.round(Math.random() * 255);
+	rgb = "rgb(" + $r + "," + $g + "," + $b + ")";
+	return rgb;
+}
+
+function toggleSlideDownOnClass($class) {
+	$("." + $class).slideToggle();
+}
 
 function toggleVisibilityOnClass($class) {
-	$("." + $class).fadeToggle("slow");
+	$("." + $class).toggle();
 }
 
-function hideShow($show, $hide) {
-	hideShow($show, $hide);
+
+function parseJSONFileToSelect($file, $element_id, $label_index, $value_index) {
+	$.ajax({
+		url: $file,
+		type: 'POST',
+		dataType: 'json',
+		success: function ($response) {
+			$.each($response, function ($key, $value) {
+				//log($key + " = " + $value[$value_index]);
+
+				var $select_label = $value[$label_index];
+				var $select_value = $value[$value_index];
+				//log("$select_label:" + $select_label + "   $select_value:" + $select_value);
+
+				if ($select_label.toLowerCase() == "[div]") {
+					$select_label = "-----------------------------";
+					$select_value = "";
+				}
+
+				$('#' + $element_id).append(
+						$('<option>')
+						.text($select_label)
+						.attr('value', $select_value)
+					);
+				});
+		}
+	});
 }
-function hideShow($show, $hide) {
-	log($hide.length);
+
+function hideShow($ShowClassName, $HideClassName) {
+	var $index;
+
+	if (isArray($ShowClassName)) {
+		for ($index in $ShowClassName) {
+			var $ItemToShow = $ShowClassName[$index];
+			log($ItemToShow);
+			$("." + $ItemToShow).show();
+		}
+	} else {
+		$("." + $ShowClassName).show();
+	}
+
+
+	if (isArray($ShowClassName)) {
+		for ($index in $ShowClassName) {
+			var $ItemToHide = $ShowClassName[$index];
+			//log($ItemToHide);
+			$("." + $ItemToShow).hide();
+		}
+	} else {
+		$("." + $HideClassName).hide();
+	}
+}
+
+function isArray(obj) {
+	return obj.constructor == Array;
 }
 
 
@@ -201,7 +284,7 @@ function limitLengthInWords(field, maxWords) {
 
 
 // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-function isChecked($id){
+function isChecked($id) {
 	$element = document.getElementById($id);
 	return $element.checked;
 }
@@ -365,11 +448,11 @@ function AJAXLoad($url, $method, $data, $callback) {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 function convertOnlyZeroToNull($input) {
-	if ($input == 0){
+	if ($input == 0) {
 		return null;
 	}
 
-	if ($input == "0"){
+	if ($input == "0") {
 		return null;
 	}
 
@@ -380,15 +463,15 @@ function convertOnlyZeroToNull($input) {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 function convertNullToZero($input) {
-	if ($input == null){
+	if ($input == null) {
 		return 0;
 	}
 
-	if ($input == "null"){
+	if ($input == "null") {
 		return 0;
 	}
 
-	if ($input == "NULL"){
+	if ($input == "NULL") {
 		return 0;
 	}
 	
@@ -420,6 +503,15 @@ function getCookie($name) {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 function getFileExtensions($input) {
 	return $input.slice(($input.lastIndexOf(".") - 1 >>> 0) + 2);
+}
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+function getLastPartOfUrl() {
+	var $url = window.location.href;
+	var $part = $url.substring($url.lastIndexOf('/') + 1);
+	return $part;
 }
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

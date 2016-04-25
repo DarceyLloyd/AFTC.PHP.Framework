@@ -15,14 +15,15 @@ class DirectoryLibrary
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	private $article_path;
 	private $secure_article_path;
+	private $secure_user_path;
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	
 	
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	public function __construct()
 	{
-		$this->article_path = Config::$server_root_path . Config::$root_absolute_path . "/data/articles/";
-		$this->secure_article_path = Config::$server_root_path . Config::$root_absolute_path . "/../secure_files/articles/";
+		$this->article_path = Config::$server_root_path . Config::$root_absolute_path . "data/articles/";
+		$this->secure_article_path = Config::$server_root_path . Config::$root_absolute_path . "../secure_files/articles/";
 	}
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	
@@ -38,6 +39,24 @@ class DirectoryLibrary
 
 		$this->create($folder1);
 		$this->create($folder2);
+	}
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	public function newUser($user_id)
+	{
+		$this->secure_user_path = Config::$server_root_path . Config::$root_absolute_path . "../secure_files/users/" . $user_id;
+		$this->create($this->secure_user_path);
+	}
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	public function removeUser($user_id)
+	{
+		$this->secure_user_path = Config::$server_root_path . Config::$root_absolute_path . "../secure_files/users/" . $user_id;
+		$this->recursiveDelete($this->secure_user_path);
 	}
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

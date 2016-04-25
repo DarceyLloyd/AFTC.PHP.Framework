@@ -4,7 +4,7 @@
   "keywords": [
     "framework",
     "aftc",
-    "example project"
+    "application"
   ],
   "license": "MIT",
   "type": "project",
@@ -12,11 +12,12 @@
   "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
-      "AFTC\\Framework\\App\\": "AFTC"
+      "AFTC\\Framework\\App\\": "Application"
     }
   },
   "require": {
     "php": ">=5.5.0",
-    "aftc/framework":"0.8"
+    "aftc/framework":"0.9",
+    "stripe/stripe-php": "3.*"
   }
 }

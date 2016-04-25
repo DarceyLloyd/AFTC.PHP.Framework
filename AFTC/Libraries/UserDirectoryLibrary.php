@@ -55,7 +55,7 @@ class UserDirectoryLibrary
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	public function __construct()
 	{
-		$this->path = Config::$server_root_path . Config::$root_absolute_path . "/data/users/";
+		$this->path = Config::$server_root_path . Config::$root_absolute_path . "data/users/";
 	}
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	

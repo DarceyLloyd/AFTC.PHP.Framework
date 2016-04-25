@@ -39,13 +39,13 @@ class SessionLibrary extends Helper
 	public function get($key)
 	{
 		$EencryptedKey = $this->encryption->ecbEncrypt($key);
-		$DecryptedValue = "";
+		$DecryptedValue = null;
 
 		if (isset($_SESSION[$EencryptedKey])){
 			$EncryptedValue = $_SESSION[$EencryptedKey];
 			$DecryptedValue = $this->encryption->decrypt($EncryptedValue);
 		} else {
-			return null;
+			return $DecryptedValue;
 		}
 
 		return $DecryptedValue;

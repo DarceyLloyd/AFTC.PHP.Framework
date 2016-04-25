@@ -1,6 +1,3 @@
-#AddType x-httpd-php56 .php
-#AddType x-httpd-php7 .php
-
 Options +FollowSymlinks
 Options -Indexes
 RewriteEngine On

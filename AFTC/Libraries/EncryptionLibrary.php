@@ -36,8 +36,8 @@ class EncryptionLibrary extends Helper
 
 		// KEYS & Var ini
 		$this->init = true;
-		$this->key_file1 = Config::$server_root_path . Config::$root_absolute_path . "/AFTC/key1";
-		$this->key_file2 = Config::$server_root_path . Config::$root_absolute_path . "/AFTC/key2";
+		$this->key_file1 = Config::$server_root_path . Config::$root_absolute_path . "Application/key1";
+		$this->key_file2 = Config::$server_root_path . Config::$root_absolute_path . "Application/key2";
 		$this->key1 = file_get_contents($this->key_file1);
 		$this->key2 = file_get_contents($this->key_file2);
 

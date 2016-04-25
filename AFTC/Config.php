@@ -5,6 +5,9 @@ use AFTC\Framework\Config as Config;
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // NOTE: If you want to turn on / off page generation times please see index.php in project root
 Config::$show_page_generation_time = true;
+Config::$page_generation_time_logging = true;
+Config::$page_generation_time_append_string = " Site hosted with xxxxx.";
+
 Config::$server_root_path = "";
 
 Config::$domain_dev = "http://127.0.0.1";
@@ -19,7 +22,7 @@ Config::$root_relative_path_dev = "./";
 Config::$root_relative_path_live = "./";
 
 // Absolute html path to the root of your website / AFTC Framework installation
-// Leave blank if your webiste root is the root of your webserver eg public_html / httpdocs etc
+// WARNING: Always ensure your path for dev and live end with a "/"
 Config::$root_absolute_path_dev = "/Dev/AFTC_PHP_Framework/www";
 Config::$root_absolute_path_live = "/";
 
@@ -34,7 +37,7 @@ Config::$enable_sessions = true;
 Config::$session_https = false;
 Config::$session_http_only = true; // This stops javascript being able to access the session id
 Config::$session_name = "AFTC";
-Config::$cookie_expiration_time = 48; // Time in hours
+Config::$cookie_expiration_time = 1440; // Time in hours
 
 // Security (used by Security helper for saled hashed password string generation for unsalted php7 compliant password_hash function use)
 Config::$password_hashing_cost = 12; // MUST BE 4 AND ABOVE. WARNING: NUMBERS OVER 10 CAN SLOW DOWN PAGE GENERATION TIME CONSIDERABLY!!

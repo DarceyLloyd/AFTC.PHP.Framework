@@ -24,14 +24,25 @@ if ($db->isConnected()){
 }
 
 // Page render time end
+$sec = number_format((microtime(true) - $before), 4);
 $show_page_generation_time = \AFTC\Framework\Config::$show_page_generation_time;
 if ($show_page_generation_time) {
-	$sec = number_format((microtime(true) - $before), 4);
 	$html = "<div id='AFTCFrameworkPageRenderTime' style='";
 	$html .= "display:table; margin: 15px 5px 15px 0px; padding:2px; border:2px solid #BBBBBB; ";
 	$html .= "background:#CCCCCC; color:#666666; font-family:arial; font-size:11px; margin: 10px 0 0 0";
 	$html .= "'>";
-	$html .= "AFTC Framework: Page was generated in " . $sec . " seconds";
+	$html .= "AFTC Framework: Page was generated in " . $sec . " seconds. " . \AFTC\Framework\Config::$page_generation_time_append_string;
 	$html .= "</div>";
 	echo($html);
+}
+
+
+if (\AFTC\Framework\Config::$page_generation_time_logging){
+	$file = \AFTC\Framework\Config::$server_root_path . \AFTC\Framework\Config::$root_absolute_path . "generation_times.txt";
+	$myfile = fopen($file, "a+") or die("Unable to open file!");
+	$page = "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+	//$msg = \AFTC\Framework\Utilities::getNiceDateTime() . ": Page generation time:" . $sec . " seconds (" . $page . ")";
+	$msg = '"'. \AFTC\Framework\Utilities::getNiceDateTime() . '",' . $sec . ',"' . $page . '"';
+	fwrite($myfile, "\n" . $msg);
+	fclose($myfile);
 }
