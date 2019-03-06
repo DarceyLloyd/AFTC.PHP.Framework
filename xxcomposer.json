@@ -1,0 +1,11 @@
+{
+    "name": "darcey/aftc.php.framework.template",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Darcey",
+            "email": "Darcey.Lloyd@gmail.com"
+        }
+    ],
+    "require": {}
+}
