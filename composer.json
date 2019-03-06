@@ -1,7 +1,7 @@
 {
   "name": "aftc/framework",
   "description": "The AFTC Framework.",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "keywords": [
     "framework",
     "aftc"
@@ -22,6 +22,6 @@
     }
   },
   "require": {
-    "php": ">=7.3.0"
+    "php": ">=7.2.0"
   }
 }
