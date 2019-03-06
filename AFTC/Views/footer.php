@@ -1,1 +1,0 @@
-Data and Dreams LTD

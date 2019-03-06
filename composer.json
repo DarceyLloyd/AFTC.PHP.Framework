@@ -1,23 +1,24 @@
 {
-  "name": "aftc/framework/application",
-  "description": "An application built using the AFTC Framework.",
-  "keywords": [
-    "framework",
-    "aftc",
-    "application"
+  "name": "darcey/aftc19",
+  "description": "aftc framework project",
+  "version": "0.1.0",
+  "authors": [
+    {
+      "name": "Darcey",
+      "email": "Darcey.Lloyd@gmail.com"
+    }
   ],
   "license": "MIT",
   "type": "project",
-  "author": "Darcey Lloyd",
-  "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
-      "AFTC\\Framework\\App\\": "Application"
+      "AFTC\\App\\": "App",
+      "AFTC\\Framework\\": "AFTC\\framework\\src"
     }
   },
+  "minimum-stability": "stable",
   "require": {
-    "php": ">=5.5.0",
-    "aftc/framework":"0.9",
-    "stripe/stripe-php": "3.*"
+    "php": ">=7.2.0",
+    "nikic/fast-route": "^1.3"
   }
 }
